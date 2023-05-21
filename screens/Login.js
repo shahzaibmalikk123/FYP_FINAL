@@ -6,33 +6,35 @@ import { COLORS, icons, SIZES, images, FONTS } from '../constants';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 export const Login=( {navigation})=>{
     return(
-        <SafeAreaView style={{flex:1,alignItems:'center'}}>
+        <SafeAreaView style={{flex:1,alignItems:'center',paddingTop:20}}>
             <View style={{
-                height:"50%",
+                height:"25%",
                 width:'100%',
             }}>
                 <ImageBackground 
-                    resizeMode='contain'
+                    resizeMode='cover'
                     style={{
                         height:'100%',
                         width:'100%'
                     }}
-                    source={images.online_pharmacy1} 
+                    source={images.medxCure} 
                 
                 
                 />
             </View>
             <View style={{
-                height:"50%",
+                height:"75%",
                 width:'100%',
             }}>
                 <View style={{
-                    height:"60%",
+                    height:"70%",
                     width:'100%',
                     paddingHorizontal:45,
                     paddingVertical:40,
+                    paddingBottom:0,
                     alignItems:'center',
             }}>
+                    <View style={{height:'50%'}}></View>
                     <Text style={{
                         fontSize:SIZES.h1,
                         textAlign:"center",
@@ -51,7 +53,7 @@ export const Login=( {navigation})=>{
                     </Text>
                 </View>
                 <View style={{
-                    height:"40%",
+                    height:"30%",
                     width:'100%',
                     paddingTop:30
                 }}>

@@ -44,6 +44,7 @@ export const OrderDelivery = ({ route, navigation }) => {
 
     // store the medicines data in the state
     React.useEffect(() => {
+        
         setMedicines(item);
     });
 
@@ -85,6 +86,7 @@ export const OrderDelivery = ({ route, navigation }) => {
     React.useEffect(() => {
         let orderItems = buyData.map((item) => {
             let medicine = medicineData.find((a) => a.id == item.id);
+            
             return {
                 photo: medicine.photo,
                 price: medicine.price,
@@ -215,7 +217,7 @@ export const OrderDelivery = ({ route, navigation }) => {
                     <View style={{ width: "100%", height: "100%" }}>
                         <Image
                             resizeMode="contain"
-                            source={medicines?.photo}
+                            source={{ uri:  medicines?.photo}}
                             style={{
                                 height: "100%",
                                 width: "100%",
@@ -476,6 +478,7 @@ export const OrderDelivery = ({ route, navigation }) => {
                             }}
                         >
                             <Text
+                                
                                 style={{
                                     fontSize: SIZES.h5,
                                     fontWeight: "bold",
@@ -486,7 +489,7 @@ export const OrderDelivery = ({ route, navigation }) => {
                                 Product Detail
                             </Text>
                             <View>
-                                <Text>{medicines?.description}</Text>
+                                <Text numberOfLines={5} ellipsizeMode='tail'  >{medicines?.description}</Text>
                             </View>
                         </View>
                         <View
@@ -570,13 +573,7 @@ export const OrderDelivery = ({ route, navigation }) => {
                                             width: "3%",
                                         }}
                                     ></View>
-                                    {/* <Pressable
-                                        onPress={() => addingItems()}
-                                        style={{
-                                            height: '100%', width: "82%", backgroundColor: '#2A8C8D', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', borderRadius: 20
-                                        }}>
-                                        <Text style={{ fontWeight: 'bold', fontSize: SIZES.h3, color: 'white' }}>Add to Basket</Text>
-                                    </Pressable> */}
+                                    
                                     <Pressable
                                         onPress={() => addingItems()}
                                         style={{
@@ -719,8 +716,8 @@ export const OrderDelivery = ({ route, navigation }) => {
                                 </Text>
                             </View>
                             {/* View containing list of individual medicines and their subtotal */}
-                            <ScrollView scrollEnabled={true}>
-                                <View>
+                            <ScrollView  scrollEnabled={true}>
+                                <View >
                                 {buyData &&
                                     cartData?.map((item, index) => (
                                         <View
@@ -741,7 +738,7 @@ export const OrderDelivery = ({ route, navigation }) => {
                                                 }}
                                             >
                                                 <Image
-                                                    source={item?.photo}
+                                                    source={{uri : item?.photo}}
                                                     resizeMode="contain"
                                                     style={{
                                                         width: 30,

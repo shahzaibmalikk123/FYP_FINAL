@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View,Text,SafeAreaView,TextInput,useState,Image} from 'react-native';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { COLORS, icons, SIZES, images, FONTS } from '../constants';
@@ -10,6 +10,8 @@ import { useContext } from "react";
 import {auth }from "../firebase";
 
 export const Profile=({navigation})=>{
+    const [user, setUser] = React.useState(null);
+    
     const appointments = [
         {
             _id: "6451491b30424a98a658f40e",
@@ -88,8 +90,15 @@ export const Profile=({navigation})=>{
         },
 
     ]
-    const { currentUser,login,loginWithGoogle, logout,resetPassword,changePassword,displayName } = useStateContext();
+    const { currentUser,login,loginWithGoogle, logout,resetPassword,changePassword,displayName,findUser } = useStateContext();
     console.log(currentUser)
+    useEffect(() => {
+        const getUser = async () =>{
+            const user = await findUser(currentUser.email);
+            setUser(user);
+        }
+        getUser();
+    },[])
     return(
         
         <View style={{flex:1,alignItems:'center',paddingHorizontal:20,paddingTop:40}}>
@@ -112,7 +121,7 @@ export const Profile=({navigation})=>{
             <View style={{height:'10%',width:'100%'}}>
                 <View style={{height:'100%',width:'100%',justifyContent:'center',alignItems:'center'}}>
                     <Text style={{fontWeight:"bold",fontSize:SIZES.h1}}>
-                        {currentUser?.displayName}
+                        {user?.name}
                     </Text>
                 </View>
 
@@ -128,19 +137,19 @@ export const Profile=({navigation})=>{
                     <View style={{alignItems:'center',height:'100%',alignItems:'center',justifyContent:'center'}}>
                         <Icon  name='call-outline' size={25} color="grey"/>
                     </View>
-                    <Text style={{marginLeft:'3%',fontWeight:'500',color:'grey'}}>+92 3011234789</Text>
+                    <Text style={{marginLeft:'3%',fontWeight:'500',color:'grey',fontSize:18}}>+92 3011234789</Text>
                 </View>
                 <View style={{flexDirection:'row',height:'15%',width:'100%',flexDirection:'row',alignItems:'center'}}>
                     <View style={{alignItems:'center',height:'100%',alignItems:'center',justifyContent:'center'}}>
                         <Icon  name='mail-outline' size={25} color="grey"/>
                     </View>
-                    <Text style={{marginLeft:'3%',fontWeight:'500',color:'grey'}}>{currentUser?.email}</Text>
+                    <Text style={{marginLeft:'3%',fontWeight:'500',color:'grey',fontSize:18}}>{user?.email}</Text>
                 </View>
                 <Pressable onPress={()=>navigation.navigate("Appointments",{appointments})} style={{flexDirection:'row',height:'15%',width:'100%',flexDirection:'row',alignItems:'center'}}>
                     <View style={{alignItems:'center',height:'100%',alignItems:'center',justifyContent:'center'}}>
-                        <Icon  name='mail-outline' size={25} color="grey"/>
+                        <Icon  name='book-outline' size={25} color="grey"/>
                     </View>
-                    <Text style={{marginLeft:'3%',fontWeight:'500',color:'grey'}}>View Appointments</Text>
+                    <Text style={{marginLeft:'3%',fontWeight:'500',color:'grey',fontSize:18}}>View Appointments</Text>
                 </Pressable>
                 <View style={{height:'45%'}}></View>
                 <Pressable 

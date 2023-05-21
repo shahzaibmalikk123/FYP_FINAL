@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { data } from "./data/Medicines";
+
 import { LabData } from "./data/LabData";
 import {
     createUserWithEmailAndPassword,
@@ -18,11 +19,15 @@ const ContextP = createContext();
 
 export const PracticeProvider = ({ children }) => {
     const [buyData, setBuyData] = useState([]);
-    const [medicineData, setMedicine] = useState(data);
+    const [medicineData, setMedicine] = useState([]);
     const [LabsData, setLabsData] = useState(LabData)
     const [currentUser, setCurrentUser] = useState({});
     const [loading, setLoading] = useState(true);
     const [loggedInUser,setLoggedInUser] = useState({});
+    const [doctors, setDoctors] = React.useState({})
+
+   
+    
 
     // to find the user details in the db
     const findUser = async (email) => {
@@ -74,10 +79,38 @@ export const PracticeProvider = ({ children }) => {
     }
 
     useEffect(() => {
+        const getMedicines = async () =>{
+            
+            
+            
+            await axiosInstance.get(`medicines`).then( res => 
+            
+              {
+                
+                
+                setMedicine(res.data.map(med =>
+                    {
+                        return(
+                            {...med, id:med._id}
+                        )
+                    }))
+                
+            })
+          }
+
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
             setCurrentUser(user);
             setLoading(false);
         });
+        const getDoctors = async () => {
+            await axiosInstance
+                .get("doctors")
+                .then((res) => setDoctors(res.data))
+                .catch((err) => console.log(err));
+        };
+        
+        getMedicines();
+        getDoctors();
         return unsubscribe;
         // eslint-disable-next-line
     }, []);
@@ -85,7 +118,7 @@ export const PracticeProvider = ({ children }) => {
     if (medicineData)
         return (
             <ContextP.Provider
-                value={{ medicineData, setMedicine, buyData, setBuyData,LabsData, setLabsData, currentUser, signup,login,loginWithGoogle, logout,resetPassword,changePassword ,findUser}}
+                value={{ medicineData, setMedicine, buyData, setBuyData,LabsData, setLabsData, currentUser, signup,login,loginWithGoogle, logout,resetPassword,changePassword ,findUser , doctors, setDoctors}}
             >
                 {children}
             </ContextP.Provider>

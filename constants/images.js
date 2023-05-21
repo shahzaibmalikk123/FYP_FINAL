@@ -62,6 +62,9 @@ const bloodclotting = require("../assets/images/bloodclotting.jpg");
 const labtest3 = require("../assets/images/labtest3.jpg");
 const labtest4 = require("../assets/images/labtest4.jpg");
 const labtest5 = require("../assets/images/labtest5.jpg");
+const medxCure1 = require("../assets/images/medxCure1.png");
+const medxCure = require("../assets/images/medxCure.png");
+const logo = require("../assets/images/logo.png");
 
 export default {
     avatar_1,
@@ -126,5 +129,8 @@ export default {
     bloodtest,
     labtest3,
     labtest4,
-    labtest5
+    labtest5,
+    medxCure1,
+    medxCure,
+    logo
 }

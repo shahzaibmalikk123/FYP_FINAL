@@ -22,33 +22,26 @@ const SignUp=({navigation})=>{
     //const [confirmPassword, setConfirmPassword] = React.useState('');
     //const [passwordError, setPasswordError] = React.useState(null);
 
-    // useEffect(() => {
-    //     if (password !== confirmPassword) {
-    //       setPasswordError("Passwords don't match.");
-    //     } else {
-    //       setPasswordError(null);
-    //     }
-    //   }, [password, confirmPassword]);
+    useEffect(() => {
+        if(currentUser?.email)navigate("Home")
+      }, [currentUser]);
 
-    const handleSignUp = async () => {
-        
-        await axiosInstance 
-            .post("users/new", username, email)
-            .then(async(res)=>{
-                try{
-                    const data = await res.data;
-                    console.log(data);
-                    await signup(auth, email, password, username);
-                }
-                catch(error){
-                    console.log(error)
-                }
-
-            })
-            .catch((err) => {
-                console.log(err);
-               
-            });
+      const handleSignUp = async () => {
+        await axiosInstance
+          .post("users/new", { name: username, email: email })
+          .then(async (res) => {
+            try {
+              const data = await res.data;
+              console.log(data);
+              await signup(auth, email, password, username);
+            } catch (error) {
+              console.log(error)
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
 
         
         // try {
@@ -67,7 +60,7 @@ const SignUp=({navigation})=>{
         //   // handle login error here, for example, show an error message to the user
         //   console.log(error);
         // }
-      };
+      
     return(
         <SafeAreaView style={{flex:1, alignItems:'center'}}>
             <View style={{

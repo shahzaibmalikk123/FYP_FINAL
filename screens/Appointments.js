@@ -24,8 +24,9 @@ export const Appointments=({ route, navigation })=>{
     
     const [appointmentList, setAppointmentList] = React.useState([]);
     const { appointments } = route.params;
-    const { findUser,currentUser } = useStateContext();
-    const [matchedUser, setMatchedUser]= React.useState({})
+    const { findUser,currentUser, doctors, setDoctors, getDoctors } = useStateContext();
+    const [user, setUser]= React.useState({})
+
     React.useEffect(() => {
         // const getAppointments = async () =>{
         //   try{
@@ -39,28 +40,71 @@ export const Appointments=({ route, navigation })=>{
 
         //   }
         // };
-        const userAppointments = async () => {
-          try{
-            console.log(currentUser.email)
-            const user = await findUser(currentUser.email)
-            setMatchedUser(user)
-            console.log("Matched User: ", matchedUser);
-          }
-          catch(error){
-            console.log(error)
-
-          }
+        
+        
+        const getAppointments = async () =>{
+          const user = await findUser(currentUser?.email);
+          if(!user) return;
+          console.log('Fetching appointments for user:', user._id); // for debugging purposes only
+          await axiosInstance.get(`appointments/${user._id}/patient`).then( res => 
           
+            {
+              console.log("the response we are getting is ",res.data)
+              setAppointmentList(res.data)
+              console.log('Appointments fetched:', res.data); // for debugging purposes only
+          })
         }
-        userAppointments();
+        // const userAppointments = async () => {
+        //   try{
+        //     console.log(currentUser.email)
+        //     const user = await findUser(currentUser.email)
+        //     setMatchedUser(user)
+        //     console.log("Matched User: ", matchedUser);
+        //   }
+        //   catch(error){
+        //     console.log(error)
+
+        //   }
+          
+        // }
+        // userAppointments();
+        //getUser();
+        getAppointments();
     }, []);
-    
+    console.log(appointmentList)
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.heading}>My Appointments</Text>
+            <View style={{flexDirection:'row',height:"8%",alignItems:'center',}}>
+              <Pressable
+                    style={{
+                        width: "15%",
+                        padding: SIZES.padding * 0,
+                        paddingLeft: SIZES.padding * 2,
+                        paddingRight: 0,
+                        justifyContent: "center",
+                    }}
+                    onPress={() => navigation.goBack()}
+                >
+                    <Image
+                        source={icons.back}
+                        resizeMode="contain"
+                        style={{
+                            width: 30,
+                            height: 30,
+                            tintColor: "teal",
+                        }}
+                    />
+                    {/* <Icon name="arrow-back-outline" size={35} color="teal" /> */}
+                </Pressable>
+                <View style={{width:'80%',alignItems:'center',justifyContent:'center',}}>
+                  <Text style={styles.heading}>My Appointments</Text>
+                </View>
+            </View>
           <ScrollView contentContainerStyle={styles.scrollContainer}>
-            {appointmentList.map((appointment, index) => (
+            {appointmentList && appointmentList.map((appointment, index) => (
+              
+              
               <View key={appointment._id} style={styles.appointmentContainer}>
                 <View style={styles.infoContainer}>
                   <Text style={styles.title}>Appointment ID</Text>
@@ -68,11 +112,16 @@ export const Appointments=({ route, navigation })=>{
                 </View>
                 <View style={styles.infoContainer}>
                   <Text style={styles.title} numberOfLines={1}>Doctor name</Text>
-                  <Text style={styles.value}>{appointment?.doctor_id?.name}</Text>
+                  <Text style={styles.value}>{
+                    doctors.find(doctor => doctor._id === appointment.doctor_id)?.name || "Doctor"
+                    
+                  }
+                  </Text>
+                  {/* <Text style={styles.value}>{appointment?.doctor_id}</Text> */}
                 </View>
                 <View style={styles.infoContainer}>
-                  <Text style={styles.title} numberOfLines={1}>Patient name</Text>
-                  <Text style={styles.value}>{appointment?.patient_id?.name}</Text>
+                  <Text style={styles.title} numberOfLines={1}>Patient id</Text>
+                  <Text style={styles.value}>{appointment?.patient_id}</Text>
                 </View>
                 <View style={styles.infoContainer}>
                   <Text style={styles.title} numberOfLines={1}>Date</Text>

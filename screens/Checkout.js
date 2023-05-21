@@ -20,7 +20,7 @@ export const Checkout=({route,navigation})=>{
     const [accordion , setAccordion] = React.useState(false);
     const [payAccordion , setPayAccordion] = React.useState(false);
     const [personalAccordion , setPersonalAccordion] = React.useState(false);
-    
+    const [ToEmpty, setToEmpty] = React.useState([])
     
     
     
@@ -32,8 +32,10 @@ export const Checkout=({route,navigation})=>{
         setDetail(medicines)
         setCarttData(cartData)
         setBuyyData(buyData)
+        setToEmpty(buyData)
         
     })
+    
     let orderList , Shipping=10;
     function editOrder(action, id, price) {
         orderList = orderItems.slice()
@@ -83,6 +85,7 @@ export const Checkout=({route,navigation})=>{
         return total_sum.toFixed(2)
     }
     function lottieAnimation(){
+        setToEmpty({})
         return setLottie(true)
     }
 
@@ -212,7 +215,7 @@ export const Checkout=({route,navigation})=>{
                                                 }}
                                             >
                                                 <Image
-                                                    source={item?.photo}
+                                                    source={{uri : item?.photo}}
                                                     resizeMode="contain"
                                                     style={{
                                                         width: 30,

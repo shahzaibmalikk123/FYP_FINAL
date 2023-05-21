@@ -5,37 +5,57 @@ import { COLORS, icons, SIZES, images, FONTS } from '../constants';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Home} from "./Index";
 import {PracticeProvider,ContextP} from "../context";
+import axiosInstance from '../axios/axiosInstance';
 import { useStateContext } from "../context";
 import { useContext } from "react";
 import {auth }from "../firebase";
 
 const LoginScreen=({navigation})=>{
-    const { currentUser,login,loginWithGoogle, logout,resetPassword,changePassword } = useStateContext();
+    const { currentUser,login,loginWithGoogle, logout,resetPassword,changePassword,findUser } = useStateContext();
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [isLoading, setIsLoading] = React.useState(false);
- 
-    const handleLogin = async () => {
-        try {
-          console.log(currentUser)
-          currentUser = await login(auth, email, password);
-          
-          if(currentUser)navigate("Home")
-          else{
-            console.log(error)
-          }
-         
-          // handle successful login here, for example, navigate to the home screen
-          
-          
-        } catch (error) {
-          // handle login error here, for example, show an error message to the user
-          console.log(error);
+    const [mongoUserData , setMongoUserData] = React.useState(null)
+
+
+    React.useEffect(() => {
+        if(currentUser?.email){
+            const mongoUser =  findUser(email);
+            setMongoUserData(mongoUser)
+            navigation.navigate("Home")
         }
-      };
+      }, [currentUser]);
+    console.log(email)
+    console.log(password)
+    const handleLogin = async () => {
+        try{
+            const currentUser = await login(auth,email,password)
+            
+            
+        } catch(error){
+            console.error(error);
+        }
+        }
+        // try {
+        //   console.log(currentUser)
+        //   currentUser = await login(auth, email, password);
+          
+        //   if(currentUser)navigate("Home")
+        //   else{
+        //     console.log(error)
+        //   }
+         
+        //   // handle successful login here, for example, navigate to the home screen
+          
+          
+        // } catch (error) {
+        //   // handle login error here, for example, show an error message to the user
+        //   console.log(error);
+        // }
+
+    
     
     const handleGoogleLogin = async () =>{
-        //setIsLoading(true)
+        
         try{
         const user = await loginWithGoogle();
         }catch(error){
@@ -156,7 +176,7 @@ const LoginScreen=({navigation})=>{
                     </Pressable>
                     <View style={{width:'100%',height:'23%',flexDirection:'row',justifyContent:'center'}}>
                         <Pressable 
-                            disabled={isLoading}
+                            
                             onPress={()=>handleGoogleLogin()}
                             style={{height:'55%',backgroundColor:'lightgrey',width:'10%',alignItems:'center',justifyContent:'center'}}>
                            <Icon size={20} color="teal"  name='logo-google'/>

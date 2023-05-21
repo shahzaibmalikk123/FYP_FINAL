@@ -25,49 +25,52 @@ export const LabTests = ({ navigation }) => {
 
     const categoryData = [
         {
-            id: 1,
-            name: "Corona Test",
-            icon: icons.coronavirus,
-            description:'hey it is given the description of corona test and it is about most trending disease.',
-            price:"$13.00",
-            photo:images.coronatest,
-            apparatus:"(i) Thermocycler (ii) Nucliec acid extraction kit  (iii) PCR assay kit (iv) Lancet"
+            testId: 1,
+            name: "Blood Glucose Test",
+            description:
+                "A blood glucose test measures the amount of glucose (sugar) in the blood. It is used to diagnose diabetes and monitor blood sugar levels in people with diabetes. The procedure involves pricking the finger with a lancet to obtain a small blood sample. The sample is then placed on a test strip, which is inserted into a glucose meter. The meter provides a reading of the blood glucose level. Blood glucose tests can be done at home as part of a routine diabetes management plan or if a person is experiencing symptoms of diabetes, such as increased thirst, urination, or hunger.",
+            photo: icons.blood,
+            image:images.bloodclotting,
+            price: 20,
+            conductiveAtHome: true,
+            details:
+                "Diabetes is a chronic disease that affects how your body processes glucose, a type of sugar, in your blood. If you have diabetes, your body either doesn't make enough insulin, which is a hormone that regulates blood sugar, or doesn't use insulin effectively. This can lead to high blood sugar levels, which can damage organs, nerves, and blood vessels over time. Common symptoms of diabetes include increased thirst, frequent urination, blurry vision, fatigue, and slow healing of cuts and wounds. Diabetes can be managed with medication, lifestyle changes, and regular monitoring of blood sugar levels.",
         },
         {
-            id: 2,
-            name: "Cancer Checkup",
-            icon: icons.cancer,
-            description:'Cancer is a disease which has uncontrolled growth of abnormal cells in the body. ',
-            price:"$23.00",
-            photo:images.cancer,
-            apparatus:"(i)X-ray machine (ii)MRI scanner  (iii) Needle biosy device  (iv)Endoscope  (v)ElSA  (vi)PCR"
+            testId: 2,
+            name: "Cholesterol Test",
+            description:
+                "A cholesterol test measures the amount of cholesterol and other fats in the blood. High levels of cholesterol can increase the risk of heart disease and stroke. The procedure involves pricking the finger with a lancet to obtain a small blood sample. The sample is then placed on a test strip, which is inserted into a cholesterol meter. The meter provides a reading of the cholesterol level. Cholesterol tests can be done at home as part of a routine cholesterol management plan or if a person is at risk of developing heart disease or stroke.",
+            photo: icons.diabetes,
+            image:images.cancer,
+            price: 25,
+            conductiveAtHome: true,
+            details:
+                "Cholesterol is a waxy substance that is produced by your liver and is found in many foods. It is important for the production of hormones and for the proper functioning of your cells. However, high levels of cholesterol in your blood can increase your risk of developing heart disease and stroke. This is because cholesterol can build up in the walls of your arteries and form plaques, which can narrow or block blood flow. Common risk factors for high cholesterol include a diet high in saturated and trans fats, lack of physical activity, smoking, and obesity. Cholesterol can be managed with lifestyle changes and medication.",
         },
         {
-            id: 3,
-            name: "Diabetes Test",
-            icon: icons.diabetes,
-            description:'Diabetes is a chronic condition that affects how the body uses blood sugar for energy. ',
-            price:"$23.00",
-            photo:images.diabetes,
-            apparatus:"(i)Glucometer (ii)Continuous glucose monitoring(CGM) system  (iii) Insulin pump  "
+            testId: 3,
+            name: "COVID-19 Test",
+            description:
+                "A COVID-19 test detects the presence of the SARS-CoV-2 virus that causes COVID-19. It is used to diagnose COVID-19. The procedure involves collecting a sample from the nose or throat using a swab. The sample is then sent to a laboratory for analysis. COVID-19 tests can be done at home using a self-administered test kit or at a doctor's office or clinic.",
+            photo: icons.coronavirus,
+            image:images.coronatest,
+            price: 50,
+            conductiveAtHome: true,
+            details:
+                "COVID-19 is an infectious disease caused by the SARS-CoV-2 virus. The disease was first identified in Wuhan, China, in December 2019, and hassince spread globally, causing a pandemic. Common symptoms of COVID-19 include fever, cough, fatigue, and difficulty breathing. The virus spreads mainly through respiratory droplets when an infected person talks, coughs, or sneezes. It can also spread by touching a surface contaminated with the virus and then touching one's face. COVID-19 can be prevented by practicing good hygiene, such as washing hands frequently, wearing a mask, and practicing physical distancing. Vaccines are also available to prevent COVID-19 and reduce the severity of illness.",
         },
         {
-            id: 4,
-            name: "Blood Test",
-            icon: icons.blood,
-            description:'A blood test is a medical procedure that involves drawing blood from a patients vein.',
-            price:"$13.00",
-            photo:images.bloodtest,
-            apparatus:"(i)Phlebotomy kit (ii)Point-of-care(POC) testing devices  (iii)Laboratory-on-a-chip devices  "
-        },
-        {
-            id: 5,
-            name: "Blood clotting test",
-            icon: icons.bloodclotting,
-            description:'Blood clottingprocess in which blood forms a gel-like clot to stop bleeding after an injury.',
-            price:"$13.00",
-            photo:images.bloodclotting,
-            apparatus:"(i) CoaguCheck (ii) Hemochron  (iii) Point-of-care(POC) coagulation meter "
+            testId: 4,
+            name: "Strep Throat Test",
+            description:
+                "A strep throat test detects the presence of the group A Streptococcus bacteria that can cause strep throat. The procedure involves using a cotton swab to collect a sample from the back of the throat. The sample is then sent to a laboratory for analysis. Strep throat tests can be done at home using a self-administered test kit or at a doctor's office or clinic.",
+            photo: icons.cancer,
+            image:images.bloodtest,
+            price: 30,
+            conductiveAtHome: true,
+            details:
+                "Strep throat is a bacterial infection that can cause sore throat, fever, and swollen lymph nodes in the neck. It is caused by the group A Streptococcus bacteria, which can be spread through respiratory droplets when an infected person talks, coughs, or sneezes. Strep throat can be treated with antibiotics, which can reduce the severity and duration of symptoms and prevent complications such as rheumatic fever. Good hygiene, such as washing hands frequently and avoiding close contact with people who are sick, can also help prevent the spread of strep throat.",
         },
         
     ];
@@ -108,9 +111,9 @@ export const LabTests = ({ navigation }) => {
                     }}
                 >
                     <Image
-                        source={icons.side_bar}
+                        source={images.logo}
                         resizeMode="contain"
-                        style={{ width: 30, height: 30, tintColor: "teal" }}
+                        style={{ width: 30, height: 30,  }}
                     />
                 </Pressable>
                 <View
@@ -282,7 +285,7 @@ export const LabTests = ({ navigation }) => {
                     <View style={{height:'33%',width:'100%',paddingLeft:0,justifyContent:'center',}}>
                         <View>
                             <Image
-                                source={item.icon}
+                                source={item.photo}
                                 resizeMode="contain"
                                 style={{ width: "100%", height: "90%" }}
                             />
@@ -295,7 +298,7 @@ export const LabTests = ({ navigation }) => {
                         <Text style={{fontWeight:'bold',fontSize:SIZES.h3}}>
                             {item.name}
                         </Text>
-                        <Text style={{lineHeight:18}}>
+                        <Text style={{lineHeight:16}} ellipsizeMode='tail' numberOfLines={4}>
                             {item.description}
                         </Text>
                         
@@ -303,7 +306,7 @@ export const LabTests = ({ navigation }) => {
                     </View>
                     <View style={{height:'14%', width:'100%',}}>
                         <Text style={{fontWeight:'bold',fontSize:SIZES.h4}}>
-                            {item.price}
+                            Rs {item.price}
                         </Text>
 
                     </View>
@@ -338,7 +341,7 @@ export const LabTests = ({ navigation }) => {
                     data={categoryData}
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    keyExtractor={(item) => `${item.id}`}
+                    keyExtractor={(item) => `${item.testId}`}
                     renderItem={renderItem}
                     contentContainerStyle={{
                         paddingVertical: SIZES.padding * 1.5,

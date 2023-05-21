@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "http://192.168.1.8:5000/",
+    baseURL: "https://medxcure-server-hj2p.vercel.app/",
     headers: {
         "Content-Type": "application/json",
     },
